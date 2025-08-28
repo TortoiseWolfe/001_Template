@@ -1,0 +1,187 @@
+/* Print-specific styles for resume */
+@media print {
+  /* Reset page margins for better print layout */
+  @page {
+    margin: 0.5in;
+    size: letter;
+  }
+
+  /* Force light theme for printing */
+  :root,
+  [data-theme='dark'] {
+    --color-background: #ffffff !important;
+    --color-surface: #ffffff !important;
+    --color-text-primary: #000000 !important;
+    --color-text-secondary: #333333 !important;
+    --color-accent: #333333 !important;
+    --color-accent-hover: #000000 !important;
+    --color-border: #cccccc !important;
+  }
+
+  /* Hide non-essential elements */
+  [class*='header'],
+  [class*='controls'],
+  [class*='ThemeToggle'],
+  [class*='PDFDownload'],
+  [class*='SectionNavigation'],
+  button {
+    display: none !important;
+  }
+
+  /* Remove backgrounds and shadows */
+  * {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure text is black for maximum contrast */
+  body,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li,
+  td,
+  th {
+    color: #000 !important;
+  }
+
+  /* Links should be underlined and black */
+  a {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+
+  /* Show link URLs after the link text */
+  a[href^='http']:after,
+  a[href^='https']:after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+
+  /* Don't show URLs for internal links or email/phone */
+  a[href^='mailto:']:after,
+  a[href^='tel:']:after,
+  a[href^='#']:after,
+  a[href^='javascript:']:after {
+    content: '';
+  }
+
+  /* Ensure proper page breaks */
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  section {
+    page-break-inside: avoid;
+  }
+
+  /* Keep experience items together */
+  article,
+  .experience-item,
+  .education-item,
+  .certification-item {
+    page-break-inside: avoid;
+  }
+
+  /* Optimize footer for print */
+  footer {
+    position: relative !important;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+    font-size: 0.9em;
+  }
+
+  /* Remove animations and transitions */
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Ensure images print properly */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Make sure skills badges print clearly */
+  .skill-badge,
+  .tag {
+    border: 1px solid #333 !important;
+    padding: 2px 6px !important;
+    margin: 2px !important;
+  }
+
+  /* Optimize typewriter text for print */
+  .typewriter-text {
+    animation: none !important;
+  }
+
+  .typewriter-text::after {
+    display: none !important;
+  }
+
+  /* Ensure personal info section is prominent */
+  header[id='personal-info'] {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #000;
+  }
+
+  /* Make section headers stand out */
+  h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #333;
+    font-size: 1.5rem !important;
+  }
+
+  /* Optimize line height for readability */
+  body {
+    line-height: 1.4;
+    font-size: 11pt;
+  }
+
+  /* Ensure contact info prints clearly */
+  .contact-grid {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    flex: 1 1 auto;
+  }
+
+  /* Hide social media emojis for cleaner print */
+  .contact-icon,
+  .social-link::before {
+    display: none !important;
+  }
+
+  /* Make dates and locations stand out */
+  .date-range,
+  .location {
+    font-weight: 600;
+  }
+
+  /* Ensure bullet points are visible */
+  ul {
+    list-style-type: disc !important;
+    margin-left: 1.5rem !important;
+  }
+
+  li {
+    margin-bottom: 0.25rem;
+  }
+}

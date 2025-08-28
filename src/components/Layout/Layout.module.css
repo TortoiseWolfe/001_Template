@@ -1,0 +1,67 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Decorative side patterns */
+.layout::before,
+.layout::after {
+  content: 'XXXXXXXXX';
+  position: fixed;
+  color: var(--color-accent-bronze);
+  font-family: var(--font-display);
+  font-weight: bold;
+  opacity: 0.05;
+  letter-spacing: 15px;
+  font-size: 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.layout::before {
+  left: -80px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+}
+
+.layout::after {
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--color-background-alt) 100%
+  );
+  border-bottom: 3px solid var(--color-border);
+  padding: var(--space-md) 0;
+  box-shadow: var(--shadow-paper);
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.main {
+  flex: 1;
+  padding: var(--space-2xl) 0;
+}
+
+.footer {
+  background-color: var(--color-background-alt);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-lg) 0;
+  text-align: center;
+}

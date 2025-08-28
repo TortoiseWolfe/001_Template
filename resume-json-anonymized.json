@@ -1,0 +1,284 @@
+{
+  "personalInfo": {
+    "name": "John Doe",
+    "title": "FULL STACK DEVELOPER & GRAPHIC DESIGNER",
+    "location": {
+      "city": "Cleveland",
+      "state": "TN",
+      "zip": "37312"
+    },
+    "phone": "(555) 123-4567",
+    "email": "johndoe@example.com",
+    "willingToRelocate": ["Knoxville, TN", "Nashville, TN", "Atlanta, GA"]
+  },
+  "links": {
+    "portfolio": "https://TurtleWolfe.com",
+    "github": [
+      "https://github.com/TortoiseWolfe",
+      "https://github.com/TurtleWolfe"
+    ],
+    "linkedin": "https://linkedin.com/in/johndoe",
+    "youtube": "https://youtube.com/@johndoe",
+    "twitch": "https://twitch.tv/turtlewolfe"
+  },
+  "summary": "The rare mix of left-brain for the technical and right-brain for the visually appealing, with attention to accessibility. Semantic markup for screen readers and visual contrast for the color-blind. Media queries to adjust screen size from mobile, tablet, or desktop. Confident with React and loving TypeScript. Willing to relocate to: Knoxville, TN - Nashville, TN - Atlanta, GA",
+  "experience": [
+    {
+      "title": "SOFTWARE DEVELOPER",
+      "company": "Trinam Drafting and Design",
+      "location": {
+        "city": null,
+        "state": "GA"
+      },
+      "startDate": "2022-03-01",
+      "endDate": "2024-09-30",
+      "displayDate": "Mar 2022 - Sep 2024",
+      "isCurrent": false,
+      "responsibilities": [
+        "Developed C# plugins for Revit, improving workflow efficiency by 30%",
+        "Implemented automated testing reducing bug reports by 40%"
+      ]
+    },
+    {
+      "title": "JUNIOR DEVELOPER INTERN",
+      "company": "TechJoy Software",
+      "location": {
+        "city": null,
+        "state": null
+      },
+      "startDate": "2022-01-01",
+      "endDate": null,
+      "displayDate": "Jan 2022 - Present",
+      "isCurrent": true,
+      "responsibilities": [
+        "Developing features in React/TypeScript for production applications",
+        "Creating responsive UI components and implementing API integrations"
+      ]
+    },
+    {
+      "title": "LEAD DEVELOPER",
+      "company": "Collective Minds Incorporated",
+      "location": {
+        "city": null,
+        "state": null
+      },
+      "startDate": "2021-01-01",
+      "endDate": "2021-03-31",
+      "displayDate": "Jan 2021 - Mar 2021",
+      "isCurrent": false,
+      "responsibilities": [
+        "Lead React/React Native development serving 5,000+ users",
+        "Architected RESTful APIs using Node.js and Express",
+        "Reduced application load time by 50% through optimization"
+      ]
+    },
+    {
+      "title": "FULL STACK WEB DEVELOPER",
+      "company": "ScriptHammer.com",
+      "location": {
+        "city": "Cleveland",
+        "state": "TN"
+      },
+      "startDate": "2011-08-01",
+      "endDate": null,
+      "displayDate": "Aug 2011 - Present",
+      "isCurrent": true,
+      "responsibilities": [
+        "Designed and developed 20+ custom web applications for small businesses",
+        "Increased client conversions by 35% through UX improvements",
+        "Full stack implementation from mockup to deployment"
+      ]
+    },
+    {
+      "title": "LEAD GRAPHIC DESIGNER",
+      "company": "Creative Touch",
+      "location": {
+        "city": "Cleveland",
+        "state": "TN"
+      },
+      "startDate": "1995-10-01",
+      "endDate": "2018-12-31",
+      "displayDate": "Oct 1995 - Dec 2018",
+      "isCurrent": false,
+      "responsibilities": [
+        "Visual layout for church directories and promotional materials",
+        "Color correction and photo editing for professional publications",
+        "Managed team of two employees for photo scanning and data input"
+      ]
+    },
+    {
+      "title": "CHILDREN'S PORTRAIT PHOTOGRAPHER",
+      "company": "Antiquities",
+      "location": {
+        "city": "Cleveland",
+        "state": "TN"
+      },
+      "startDate": "1998-10-01",
+      "endDate": "2017-12-31",
+      "displayDate": "Oct 1998 - Dec 2017",
+      "isCurrent": false,
+      "responsibilities": [
+        "Traveled to 23 states on short notice for portrait fundraising programs",
+        "Set up mobile studio and photographed new groups every 12 minutes",
+        "Achieved consistent sales averaging $80 per sitting with vintage costume portraits"
+      ]
+    }
+  ],
+  "skills": {
+    "frontend": {
+      "technologies": ["React", "React Native", "TypeScript", "JavaScript ES6+", "HTML5", "CSS3", "Bootstrap", "Tailwind", "jQuery"],
+      "yearsExperience": {
+        "React": 4,
+        "TypeScript": 1,
+        "React Native": 1,
+        "JavaScript": 8,
+        "HTML5": 10,
+        "CSS3": 10
+      }
+    },
+    "backend": {
+      "technologies": ["Node.js", "Express", "C#", "PHP", "RESTful APIs", "GraphQL"],
+      "yearsExperience": {
+        "Node.js": 5,
+        "Express": 5,
+        "C#": 2,
+        "PHP": 6,
+        "RESTful APIs": 5
+      }
+    },
+    "database": {
+      "technologies": ["MongoDB", "MySQL", "PostgreSQL", "Firebase", "Microsoft Access"],
+      "yearsExperience": {
+        "MongoDB": 3,
+        "MySQL": 5,
+        "PostgreSQL": 2,
+        "Firebase": 2
+      }
+    },
+    "tools": {
+      "technologies": ["Git", "GitHub", "Docker", "AWS", "Linux", "Webpack", "Jest", "Agile/Scrum"],
+      "yearsExperience": {
+        "Git": 6,
+        "GitHub": 6,
+        "Docker": 2,
+        "Linux": 4,
+        "Webpack": 3,
+        "Jest": 2
+      }
+    },
+    "design": {
+      "technologies": ["Adobe Photoshop", "GIMP", "Typography", "Wireframing"],
+      "yearsExperience": {
+        "Adobe Photoshop": 10,
+        "GIMP": 3,
+        "Typography": 15,
+        "Wireframing": 5
+      }
+    },
+    "cms": {
+      "technologies": ["WordPress", "Drupal", "Joomla", "CodeIgniter"],
+      "yearsExperience": {
+        "WordPress": 2,
+        "Drupal": 1,
+        "Joomla": 1,
+        "CodeIgniter": 2
+      }
+    }
+  },
+  "education": [
+    {
+      "institution": "JOY OF CODING ACADEMY",
+      "degree": "Software Development Bootcamp",
+      "startDate": "2024-01-01",
+      "endDate": null,
+      "displayDate": "Enrolled 2024",
+      "isCurrent": true,
+      "gpa": null
+    },
+    {
+      "institution": "CLEVELAND STATE COMMUNITY COLLEGE",
+      "degree": "Certificate in Computer Aided Drafting (CAD)",
+      "startDate": "1995-08-01",
+      "endDate": "1996-05-31",
+      "displayDate": "1996",
+      "isCurrent": false,
+      "gpa": null
+    }
+  ],
+  "certifications": [
+    {
+      "name": "FreeCodeCamp Front End Libraries",
+      "provider": "FreeCodeCamp",
+      "date": "2021-06-01",
+      "displayDate": "2021",
+      "url": "https://www.freecodecamp.org/certification/turtlewolf/front-end-libraries",
+      "expires": null
+    },
+    {
+      "name": "Node.js API Masterclass With Express & MongoDB",
+      "provider": "Udemy",
+      "date": "2020-09-01",
+      "displayDate": "2020",
+      "url": "https://www.udemy.com/certificate/UC-8033cc47-612f-4a7b-afc3-c7a8c9273686/",
+      "expires": null
+    }
+  ],
+  "assessments": {
+    "indeed": [
+      {
+        "name": "Problem Solving",
+        "level": "Expert",
+        "score": null,
+        "date": null
+      },
+      {
+        "name": "Basic Computer Skills: PC",
+        "level": "Expert",
+        "score": null,
+        "date": null
+      },
+      {
+        "name": "Software Developer Fit",
+        "level": "Proficient",
+        "score": null,
+        "date": null
+      },
+      {
+        "name": "Attention to Detail",
+        "level": "Proficient",
+        "score": null,
+        "date": null
+      },
+      {
+        "name": "Analyzing Data",
+        "level": "Proficient",
+        "score": null,
+        "date": null
+      },
+      {
+        "name": "Graphic Design",
+        "level": "Proficient",
+        "score": null,
+        "date": null
+      },
+      {
+        "name": "Social Media",
+        "level": "Proficient",
+        "score": null,
+        "date": null
+      },
+      {
+        "name": "Technical Support",
+        "level": "Familiar",
+        "score": null,
+        "date": null
+      },
+      {
+        "name": "Software Developer Skills",
+        "level": "Familiar",
+        "score": null,
+        "date": null
+      }
+    ]
+  }
+}

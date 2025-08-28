@@ -1,0 +1,371 @@
+.scheduleButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  color: var(--color-background);
+  border: 3px solid var(--color-primary-dark);
+  border-radius: var(--border-radius-base);
+  font-size: 1rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    var(--shadow-steampunk),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.scheduleButton:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.scheduleButton:active {
+  transform: scale(0.98);
+}
+
+.scheduleButton:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Floating Action Button variant */
+.floating {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: auto;
+  min-width: 180px;
+  height: 72px;
+  border-radius: 36px;
+  padding: 0 2rem;
+  box-shadow:
+    0 8px 30px rgba(245, 158, 11, 0.5),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: var(--z-fab, 100);
+  background: linear-gradient(135deg, #f59e0b 0%, #dc2626 50%, #f59e0b 100%);
+  background-size: 200% 100%;
+  animation:
+    bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    breathe 2s ease-in-out infinite 0.8s,
+    gradientShift 3s ease infinite,
+    wiggle 10s ease-in-out infinite 3s;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Glowing ring effect */
+.floating::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  border-radius: 40px;
+  border: 3px solid rgba(245, 158, 11, 0.8);
+  transform: translate(-50%, -50%);
+  animation: ringExpand 2s ease-out infinite;
+}
+
+/* "Available Now!" badge */
+.floating::before {
+  content: 'AVAILABLE!';
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  background: #10b981;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  animation: badgePulse 1s ease-in-out infinite;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.floating:hover {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow:
+    0 12px 40px rgba(245, 158, 11, 0.6),
+    0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.floating .icon {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+.floating .text {
+  white-space: nowrap;
+  margin-left: 0.75rem;
+  display: inline-block !important;
+}
+
+/* Header variant */
+.header {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+/* Inline variant */
+.inline {
+  margin: 1rem 0;
+}
+
+/* Icon styling */
+.icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+/* Text styling */
+.text {
+  line-height: 1;
+}
+
+/* Enhanced animations */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes badgePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes iconBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-2px);
+  }
+  75% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(100px);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  94%,
+  100% {
+    transform: rotate(0deg);
+  }
+  95% {
+    transform: rotate(-5deg);
+  }
+  96% {
+    transform: rotate(5deg);
+  }
+  97% {
+    transform: rotate(-5deg);
+  }
+  98% {
+    transform: rotate(5deg);
+  }
+  99% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes ringExpand {
+  0% {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+  100% {
+    width: 150%;
+    height: 150%;
+    opacity: 0;
+  }
+}
+
+/* Steampunk gear animation on hover */
+.scheduleButton::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 L55 25 L70 20 L65 35 L80 35 L70 45 L80 55 L65 55 L70 70 L55 65 L50 80 L45 65 L30 70 L35 55 L20 55 L30 45 L20 35 L35 35 L30 20 L45 25 Z" fill="none" stroke="rgba(251,191,36,0.1)" stroke-width="1"/></svg>')
+    center/50% no-repeat;
+  opacity: 0;
+  transform: rotate(0deg);
+  transition:
+    opacity var(--duration-base),
+    transform 1s;
+  pointer-events: none;
+}
+
+.scheduleButton:hover::before {
+  opacity: 1;
+  transform: rotate(45deg);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .floating {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    left: 1.5rem;
+    width: calc(100% - 3rem);
+    min-width: auto;
+    height: 64px;
+  }
+
+  .floating::before {
+    display: none; /* Hide badge on mobile */
+  }
+}
+
+/* Dark theme specific styles */
+:root[data-theme='dark'] .scheduleButton {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent-gold, #fbbf24) 100%
+  );
+  color: var(--color-background);
+}
+
+:root[data-theme='dark'] .scheduleButton:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-dark) 0%,
+    var(--color-accent-bronze, #92400e) 100%
+  );
+}
+
+/* Light theme specific styles */
+:root[data-theme='light'] .scheduleButton {
+  background: var(--color-primary);
+  color: white;
+}
+
+:root[data-theme='light'] .scheduleButton:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Attention mode - makes button super prominent */
+.attentionMode {
+  animation:
+    attentionGrab 0.5s ease-out,
+    superPulse 1s ease-in-out infinite 0.5s,
+    shake 0.5s ease-in-out 2s !important;
+  transform: scale(1.15) !important;
+  box-shadow:
+    0 0 0 8px rgba(245, 158, 11, 0.2),
+    0 0 0 16px rgba(245, 158, 11, 0.1),
+    0 15px 45px rgba(245, 158, 11, 0.6),
+    0 10px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+@keyframes attentionGrab {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.3) rotate(-5deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(5deg);
+  }
+  75% {
+    transform: scale(1.3) rotate(-5deg);
+  }
+  100% {
+    transform: scale(1.15) rotate(0deg);
+  }
+}
+
+@keyframes superPulse {
+  0%,
+  100% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0) scale(1.15);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px) scale(1.15);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px) scale(1.15);
+  }
+}
