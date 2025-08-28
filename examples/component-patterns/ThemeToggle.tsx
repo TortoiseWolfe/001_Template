@@ -1,13 +1,13 @@
 /**
  * Example: Theme Toggle Component
- * 
+ *
  * Demonstrates:
  * - Dark/light mode switching
  * - Accessible toggle button
  * - System preference detection
  * - LocalStorage persistence
  * - Smooth transitions
- * 
+ *
  * Usage:
  * ```
  * <ThemeToggle />
@@ -28,7 +28,7 @@ interface ThemeToggleProps {
 export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   defaultTheme,
   storageKey = 'theme-preference',
-  className
+  className,
 }) => {
   // Initialize theme from localStorage or system preference
   const [theme, setTheme] = useState<Theme>(() => {
@@ -37,12 +37,12 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
     if (stored === 'light' || stored === 'dark') {
       return stored;
     }
-    
+
     // Check system preference
     if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
       return 'dark';
     }
-    
+
     // Fall back to default or light
     return defaultTheme || 'light';
   });
@@ -56,7 +56,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   // Listen for system preference changes
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleChange = (e: MediaQueryListEvent) => {
       // Only update if user hasn't explicitly set a preference
       if (!localStorage.getItem(storageKey)) {
@@ -69,7 +69,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   }, [storageKey]);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   const nextTheme = theme === 'light' ? 'dark' : 'light';
@@ -93,9 +93,10 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
 };
 
 // Alternative implementation with SVG icons
-export const ThemeToggleWithSVG: React.FC<ThemeToggleProps> = (props) => {
+export const ThemeToggleWithSVG: React.FC<ThemeToggleProps> = () => {
   // ... same logic as above ...
-  
+  const theme = 'light'; // Placeholder - implement same logic as main component
+
   return (
     <button className={styles.toggle}>
       <svg

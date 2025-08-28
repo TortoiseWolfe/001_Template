@@ -1,13 +1,13 @@
 /**
  * Example: Generic API Hook
- * 
+ *
  * Demonstrates:
  * - Type-safe data fetching
  * - Loading and error states
  * - Abort controller for cleanup
  * - Retry logic
  * - Caching strategy
- * 
+ *
  * Usage:
  * ```
  * const { data, loading, error, refetch } = useAPI<User[]>('/api/users');
@@ -19,13 +19,13 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 // Generic fetch options
 interface UseAPIOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-  body?: any;
+  body?: unknown;
   headers?: HeadersInit;
   retries?: number;
   retryDelay?: number;
   cache?: boolean;
   cacheTime?: number; // in milliseconds
-  onSuccess?: (data: any) => void;
+  onSuccess?: (data: unknown) => void;
   onError?: (error: Error) => void;
   enabled?: boolean; // Conditional fetching
 }
@@ -40,9 +40,9 @@ interface UseAPIResult<T> {
 }
 
 // Simple in-memory cache
-const cache = new Map<string, { data: any; timestamp: number }>();
+const cache = new Map<string, { data: unknown; timestamp: number }>();
 
-export function useAPI<T = any>(
+export function useAPI<T = unknown>(
   url: string,
   options: UseAPIOptions = {}
 ): UseAPIResult<T> {
@@ -56,7 +56,7 @@ export function useAPI<T = any>(
     cacheTime = 5 * 60 * 1000, // 5 minutes default
     onSuccess,
     onError,
-    enabled = true
+    enabled = true,
   } = options;
 
   const [data, setData] = useState<T | null>(null);
@@ -95,10 +95,10 @@ export function useAPI<T = any>(
         method,
         headers: {
           'Content-Type': 'application/json',
-          ...headers
+          ...headers,
         },
         body: body ? JSON.stringify(body) : undefined,
-        signal: abortControllerRef.current.signal
+        signal: abortControllerRef.current.signal,
       });
 
       if (!response.ok) {
@@ -136,7 +136,19 @@ export function useAPI<T = any>(
       onError?.(error);
       retriesRef.current = 0; // Reset retries on final failure
     }
-  }, [url, method, body, headers, retries, retryDelay, useCache, cacheTime, enabled, onSuccess, onError]);
+  }, [
+    url,
+    method,
+    body,
+    headers,
+    retries,
+    retryDelay,
+    useCache,
+    cacheTime,
+    enabled,
+    onSuccess,
+    onError,
+  ]);
 
   // Fetch on mount and when dependencies change
   useEffect(() => {
@@ -160,54 +172,60 @@ export function useAPI<T = any>(
   }, [fetchData, url, useCache]);
 
   // Optimistic update function
-  const mutate = useCallback((newData: T) => {
-    setData(newData);
-    if (useCache) {
-      cache.set(url, { data: newData, timestamp: Date.now() });
-    }
-  }, [url, useCache]);
+  const mutate = useCallback(
+    (newData: T) => {
+      setData(newData);
+      if (useCache) {
+        cache.set(url, { data: newData, timestamp: Date.now() });
+      }
+    },
+    [url, useCache]
+  );
 
   return { data, loading, error, refetch, mutate };
 }
 
 // Specialized version for POST requests
-export function useAPIMutation<TData = any, TBody = any>(
+export function useAPIMutation<TData = unknown, TBody = unknown>(
   url: string,
   options?: Omit<UseAPIOptions, 'method' | 'body'>
 ) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const mutate = useCallback(async (body: TBody): Promise<TData | null> => {
-    setLoading(true);
-    setError(null);
+  const mutate = useCallback(
+    async (body: TBody): Promise<TData | null> => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...options?.headers
-        },
-        body: JSON.stringify(body)
-      });
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers,
+          },
+          body: JSON.stringify(body),
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        options?.onSuccess?.(result);
+        return result;
+      } catch (err) {
+        const error = err instanceof Error ? err : new Error('Unknown error');
+        setError(error);
+        options?.onError?.(error);
+        return null;
+      } finally {
+        setLoading(false);
       }
-
-      const result = await response.json();
-      options?.onSuccess?.(result);
-      return result;
-    } catch (err) {
-      const error = err instanceof Error ? err : new Error('Unknown error');
-      setError(error);
-      options?.onError?.(error);
-      return null;
-    } finally {
-      setLoading(false);
-    }
-  }, [url, options]);
+    },
+    [url, options]
+  );
 
   return { mutate, loading, error };
 }
@@ -221,22 +239,24 @@ interface User {
 
 export function useUsersExample() {
   // Fetch users
-  const { data: users, loading, error, refetch } = useAPI<User[]>(
-    '/api/users',
-    {
-      cache: true,
-      cacheTime: 10 * 60 * 1000, // 10 minutes
-      retries: 3,
-      onSuccess: (data) => console.log('Users loaded:', data),
-      onError: (error) => console.error('Failed to load users:', error)
-    }
-  );
+  const {
+    data: users,
+    loading,
+    error,
+    refetch,
+  } = useAPI<User[]>('/api/users', {
+    cache: true,
+    cacheTime: 10 * 60 * 1000, // 10 minutes
+    retries: 3,
+    onSuccess: (data) => console.log('Users loaded:', data),
+    onError: (error) => console.error('Failed to load users:', error),
+  });
 
   // Create user mutation
   const { mutate: createUser } = useAPIMutation<User, Partial<User>>(
     '/api/users',
     {
-      onSuccess: () => refetch() // Refresh users list
+      onSuccess: () => refetch(), // Refresh users list
     }
   );
 
