@@ -1,331 +1,351 @@
-# Personal Resume Website
+# 🚀 **Let's Build Something Great Together!**
 
-A modern, responsive single-page resume built with React and TypeScript, featuring steampunk-themed dark mode, typewriter animations, downloadable PDF/DOCX formats and automated deployment.
+*Welcome! This is your project repository. Start by filling out the form below to help us understand your needs.*
 
-## 🚀 Features
+[Skip to Developer Documentation](#developer-documentation) | [Skip to Template Documentation](#template-documentation)
 
-- **🌙 Dark Mode**: Steampunk-themed dark mode (default) with copper/bronze accents
-- **⌨️ Typewriter Animation**: Vintage typing effect for name and title
-- **🎨 Theme Toggle**: Switch between dark and light modes in top-right corner
-- **📱 Responsive Design**: Optimized for mobile, tablet, and desktop
-- **📥 Download Options**: Export resume as PDF or DOCX
-- **⚡ Fast Loading**: Sub-1-second load times
-- **🐳 Docker Development**: Consistent development environment
-- **🚀 Auto Deployment**: GitHub Actions → GitHub Pages
-- **🖨️ Print Friendly**: Optimized for direct printing
+---
 
-## 🛠️ Tech Stack
+## **📝 Tell Us About Your Project**
 
-- React 18 + TypeScript
-- Vite (build tool)
-- CSS Modules with dark/light theme support
-- Custom typewriter animations
-- Steampunk design system
-- Docker & Docker Compose
-- GitHub Actions
-- GitHub Pages
+*Don't worry about technical details - just help us understand what you need. We'll handle the complicated stuff.*
 
-## 🏃‍♂️ Quick Start
+---
 
-### Prerequisites
+### **How to Fill This Out**
 
-- Docker and Docker Compose
-- Node.js 18+ (for local development)
-- Git
+1. **Time needed**: About 10-15 minutes
+2. **How to edit**: Click the pencil icon (✏️) at the top right of this file on GitHub
+3. **How to save**: Scroll down and click "Commit changes" when done
+4. **Need help?** Contact us at support@example.com
 
-### Development Setup
+---
 
-1. **Clone the repository**
+## **The Basics**
 
+**What should we call your project?**
+```
+Your project name: [YOUR PROJECT NAME]
+```
+
+**What does your business/organization do?** *(2-3 sentences)*
+```
+Tell us about your business:
+[YOUR BUSINESS DESCRIPTION]
+```
+
+**What problem are we solving for you?**
+```
+Describe the main challenge or opportunity:
+[YOUR MAIN CHALLENGE]
+```
+
+---
+
+## **Your Users**
+
+**Who will use this?** *(customers, employees, both?)*
+```
+Your target users:
+[YOUR TARGET USERS]
+```
+
+**What's the main thing they need to do?**
+```
+Their primary goal:
+[PRIMARY USER GOAL]
+```
+
+**How many people will use this?**
+- [ ] Just a few (< 100)
+- [ ] Small group (100-1,000)  
+- [ ] Growing audience (1,000-10,000)
+- [ ] Large scale (10,000+)
+- [ ] Not sure yet
+
+---
+
+## **Features You Need**
+
+*Check all that apply - we'll figure out the details*
+
+### **User Accounts:**
+- [ ] No accounts needed
+- [ ] Basic login/signup
+- [ ] Social media login
+- [ ] Employee accounts
+- [ ] Customer accounts
+
+### **Payments:**
+- [ ] No payments
+- [ ] One-time payments
+- [ ] Subscriptions
+- [ ] Donations accepted
+
+### **Content & Files:**
+- [ ] Static content only
+- [ ] You'll manage all content
+- [ ] Blog or news section
+- [ ] Download resources/documents
+- [ ] Upload files/images
+
+### **Communication:**
+- [ ] No communication features
+- [ ] Email notifications
+- [ ] In-app messaging
+- [ ] Contact forms
+- [ ] Live chat
+
+### **Special Features:**
+- [ ] Admin dashboard
+- [ ] Search functionality
+- [ ] Calendar/scheduling
+- [ ] Maps/location features
+- [ ] Other: _______________
+
+---
+
+## **Timeline & Investment**
+
+**When do you need this launched?**
+- [ ] ASAP (within 1 month)
+- [ ] Soon (2-3 months)
+- [ ] This quarter (3-6 months)
+- [ ] This year (6-12 months)
+- [ ] Flexible timeline
+
+**Budget range:** *(helps us recommend the right solution)*
+- [ ] Startup budget (< $5k)
+- [ ] Small business ($5k-$25k)
+- [ ] Growing business ($25k-$100k)
+- [ ] Enterprise ($100k+)
+- [ ] Let's discuss
+
+---
+
+## **Look & Feel**
+
+**Websites/apps you like:** *(share 2-3 examples)*
+```
+Examples:
+1. 
+2. 
+3. 
+```
+
+**Your brand personality:**
+- [ ] Professional & corporate
+- [ ] Friendly & approachable
+- [ ] Modern & cutting-edge
+- [ ] Playful & fun
+- [ ] Elegant & sophisticated
+
+**Brand colors or existing website:**
+```
+Current website or brand guide:
+[YOUR BRAND INFO]
+```
+
+---
+
+## **Success Looks Like...**
+
+**How will we know this is successful?** *(be specific if possible)*
+```
+Success metrics:
+[YOUR SUCCESS METRICS]
+```
+
+**What's MOST important?** *(pick one)*
+- [ ] Works perfectly (reliability)
+- [ ] Look amazing (design)
+- [ ] Lightning fast (performance)
+- [ ] Easy to use (user experience)
+- [ ] Save money (efficiency)
+
+---
+
+## **Anything Else?**
+
+**What else should we know?**
+```
+Additional context, concerns, or questions:
+[ADDITIONAL INFO]
+```
+
+**Best way to reach you:**
+```
+Email: 
+Phone: 
+Preferred contact method: 
+```
+
+---
+
+## **📞 What Happens Next?**
+
+1. **We'll review your needs** and create a project plan
+2. **We'll schedule a call** to discuss our recommendations
+3. **You'll get a proposal** with timeline and investment details
+4. **We build something amazing together!**
+
+*Thank you for considering us for your project. We're excited to help bring your vision to life!*
+
+---
+
+<!--
+FOR INTERNAL USE:
+Process intake form with Context Engineering approach
+This will generate initial project structure based on client responses
+-->
+
+---
+---
+
+# Developer Documentation
+
+## 🚀 Quick Start
+
+### Using This Template
+
+1. **Clone the template**:
    ```bash
-   git clone <repository-url>
-   cd 001_Resume
+   git clone https://github.com/TortoiseWolfe/001_Template.git my-project
+   cd my-project
+   rm -rf .git
+   git init
    ```
 
-2. **Configure your personal information** (Privacy-first approach)
-
+2. **Install dependencies**:
    ```bash
-   # Copy environment template
+   npm install
+   ```
+
+3. **Set up environment**:
+   ```bash
    cp .env.example .env
-
-   # Copy resume template
-   cp src/data/resume.example.json src/data/resume.json
+   # Edit .env with your values
    ```
 
-   **Edit `.env`** with your personal details:
-
-   ```env
-   VITE_RESUME_NAME="Your Name"
-   VITE_RESUME_EMAIL=your.email@example.com
-   VITE_RESUME_PHONE=+1-555-123-4567
-   # ... see .env.example for all options
-   ```
-
-   **Edit `src/data/resume.json`** with your professional history:
-   - Work experience
-   - Education
-   - Skills
-   - Projects
-
-   > 🔒 **Privacy Note:** Your `.env` and `resume.json` files are gitignored and never committed to the repository.
-
-   Key environment variables:
-   - `VITE_CALENDLY_URL`: Your Calendly scheduling link for interview bookings
-   - `VITE_GA4_MEASUREMENT_ID`: Google Analytics tracking (optional)
-   - See `.env.example` for all available options
-
-3. **Start with Docker Compose** (Recommended)
-
+4. **Start development**:
    ```bash
+   npm run dev
+   # Or with Docker:
    docker-compose up --build
    ```
 
-   The application will be available at `http://localhost:5173`
+## ✅ Core Requirements
 
-4. **Or run locally**
-   ```bash
-   npm install
-   npm run dev
-   ```
+### Accessibility (WCAG 2.1 AA)
+- Minimum 4.5:1 color contrast ratio
+- All interactive elements keyboard accessible
+- Proper ARIA labels and semantic HTML
+- Test with screen readers (NVDA/JAWS)
+- Test for colorblind users
 
-### Building for Production
+### Performance
+- First Contentful Paint < 1s
+- Time to Interactive < 3s
+- Bundle size < 500KB
+- Lighthouse score > 90
+- Core Web Vitals passing
 
-```bash
-# With Docker
-docker-compose -f docker-compose.prod.yml up --build
-
-# Or locally
-npm run build
-npm run preview
-```
+### Mobile-First
+- Touch targets minimum 44x44px
+- Test at 320px viewport width
+- No horizontal scroll
+- Font size minimum 16px
 
 ## 📁 Project Structure
 
 ```
-├── src/
-│   ├── components/
-│   │   ├── Layout/         # Header, Footer, Navigation
-│   │   ├── Resume/         # PersonalInfo, Experience, Skills
-│   │   ├── UI/             # ThemeToggle, DownloadButton
-│   │   └── Common/         # Card, Section, Button
-│   ├── contexts/           # Theme, Resume data contexts
-│   ├── hooks/              # Custom React hooks
-│   ├── data/               # Resume content (JSON)
-│   ├── styles/             # CSS modules, theme variables
-│   ├── utils/              # Helper functions
-│   ├── types/              # TypeScript definitions
-│   └── App.tsx             # Main application
-├── public/                 # Static assets, fonts, icons
-├── docker/                 # Docker configurations
-├── tests/                  # Test suites
-├── .github/workflows/      # CI/CD pipelines
-├── ai_docs/               # Architecture documentation
-└── specs/                 # Requirements, design system
+├── PRPs/                  # Product Requirements Prompts
+│   ├── templates/        # PRP templates
+│   └── README.md         # PRP guide
+├── examples/             # Code patterns
+├── specs/                # Technical specs
+├── ai_docs/              # AI context
+├── src/                  # Your code here
+├── public/               # Static assets
+└── .github/workflows/    # CI/CD
+```
+
+## 🛠️ Available Scripts
+
+```bash
+# Development
+npm run dev              # Start dev server
+npm run build           # Build for production
+npm run preview         # Preview build
+
+# Quality
+npm run lint            # Run ESLint
+npm run format          # Format code
+npm run type-check      # TypeScript check
+
+# Testing
+npm test                # Run tests
+npm run test:coverage   # Coverage report
 ```
 
 ## 🚀 Deployment
 
-Deployment is automated via GitHub Actions:
-
-1. Push changes to `main` branch
-2. GitHub Actions builds the application
-3. Deploys to GitHub Pages automatically
-
-**Live Site**: https://tortoisewolfe.github.io/Resume/
-
-## 📱 Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## 🧪 Testing
-
+### GitHub Pages
 ```bash
-npm test              # Run unit tests
-npm run test:e2e      # Run end-to-end tests
-npm run test:coverage # Generate coverage report
-npm run type-check    # TypeScript checking
-npm run lint          # ESLint
-npm run format        # Prettier formatting
-npm run bundle-analyze # Analyze bundle size
-```
+# Update vite.config.ts
+base: '/your-repo-name/'
 
-## 📊 Success Metrics
-
-### Performance Targets
-
-- ⚡ **First Contentful Paint**: < 1.0s
-- 📦 **Bundle Size**: < 500KB gzipped
-- 🎯 **Lighthouse Score**: > 90
-- 🖼️ **Largest Contentful Paint**: < 2.5s
-- 🔄 **Time to Interactive**: < 3.0s
-
-### Quality Metrics
-
-- ✅ **Test Coverage**: > 80%
-- ♿ **Accessibility**: WCAG 2.1 AA compliant
-- 📱 **Mobile Score**: 100% responsive
-- 🌐 **Browser Support**: 95%+ global usage
-
-### Monitoring
-
-```bash
-# Check bundle size
+# Deploy
 npm run build
-ls -lh dist/assets/*.js
-
-# Run Lighthouse
-npm run lighthouse
-
-# Check accessibility
-npm run test:a11y
+npm run deploy
 ```
 
-## 🚀 Implementation Roadmap
-
-### Quick Wins (1-2 hours each)
-
-1. ✅ Project initialization with Vite
-2. ✅ Basic component structure
-3. ✅ Dark theme implementation
-4. ✅ Resume data integration
-5. ✅ Mobile responsive layout
-
-### Core Features ✅ COMPLETE
-
-1. ✅ Typewriter animation with accessibility support
-2. ✅ Theme toggle with persistence and steampunk styling
-3. ✅ PDF download functionality with lazy loading
-4. ✅ Steampunk styling with copper/bronze palette
-5. ✅ Performance optimization (< 500KB bundle, Lighthouse > 90)
-
-### Polish & Deploy ✅ COMPLETE
-
-1. ✅ Loading states and error boundaries
-2. ✅ GitHub Actions CI/CD pipeline
-3. ✅ GitHub Pages deployment (Live!)
-4. ✅ Comprehensive testing suite
-5. ✅ Performance monitoring setup
-
-### SEO & Professional Enhancement 🚀 IN PROGRESS (Phase 5)
-
-1. ✅ Professional meta tags and title optimization
-2. ⏳ Custom favicon and branding assets
-3. ✅ Open Graph and Twitter Card meta tags
-4. ✅ JSON-LD structured data for search engines
-5. ⏳ Complete resume data update (when all accurate information available)
-6. ✅ Google Analytics 4 integration with privacy controls
-7. ⏳ Contact optimization for recruiters
-8. ⏳ Performance monitoring with Real User Metrics
-
-## 🎯 Key Decisions
-
-| Decision              | Choice           | Rationale                          |
-| --------------------- | ---------------- | ---------------------------------- |
-| **CSS Solution**      | CSS Modules      | Better performance, smaller bundle |
-| **PDF Library**       | react-pdf (lazy) | Feature-rich, loaded on-demand     |
-| **State Management**  | React Context    | Simple app, no Redux needed        |
-| **Build Tool**        | Vite             | Faster builds, better DX           |
-| **Theme Default**     | Dark Mode        | Modern, reduces eye strain         |
-| **Animation Library** | Custom CSS       | Smaller bundle, full control       |
-| **Testing Framework** | Vitest           | Fast, Vite-native                  |
-| **Deployment**        | GitHub Pages     | Free, reliable, custom domain      |
-
-## 📄 License
-
-Personal project - All rights reserved
-
-## 🔒 Privacy & Security
-
-This template uses a **privacy-first approach**:
-
-- **Sensitive data** (name, email, phone) stored in `.env` (never committed)
-- **Professional data** (work history, skills) in `resume.json` (also gitignored)
-- **Templates provided** for both files with example data
-- **Runtime merging** combines both data sources in the app
-- **Google Analytics 4** with privacy controls:
-  - Respects browser Do Not Track settings
-  - IP anonymization enabled
-  - No advertising features or personalization
-  - Secure, same-site cookies only
-  - Can be disabled via environment variables
-
-### Data Flow
-
-```
-.env (personal info) + resume.json (career data) = Your Complete Resume
-```
-
-### Google Analytics Setup
-
-1. **Local Development**: Add your GA4 measurement ID to `.env`:
-
-   ```bash
-   VITE_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
-   ```
-
-2. **Production (GitHub Pages)**: Add as repository secret:
-   - Go to your repository on GitHub
-   - Click **Settings** tab
-   - In left sidebar under "Security", click **Secrets and variables**
-   - Click **Actions**
-   - Click green **"New repository secret"** button (NOT "Manage environment secrets")
-   - Add secret with:
-     - Name: `GA4_MEASUREMENT_ID`
-     - Value: `G-XXXXXXXXXX` (your actual measurement ID)
-   - The GitHub Actions workflow will automatically use this during build
-
-3. **Privacy Controls**: Analytics respects:
-   - Browser Do Not Track preferences
-   - `VITE_SHOW_ANALYTICS=false` to disable completely
-   - IP anonymization and no ad personalization
-
-## 🤝 Contributing
-
-This is a personal resume project. If you'd like to use this as a template:
-
-1. Fork the repository
-2. Copy `.env.example` to `.env` and add your personal info
-3. Copy `resume.example.json` to `resume.json` and add your career data
-4. Customize styling and components as needed
-5. Deploy to your own GitHub Pages
-
-**Important:** Never commit real personal data. Only example files should be in the repository.
-
-## 🔧 Troubleshooting
-
-For known bugs and test failures, see [KNOWN_ISSUES.md](./KNOWN_ISSUES.md)
-
-### Common Issues
-
-**Docker build fails**
-
+### Docker
 ```bash
-docker-compose down -v  # Clear volumes
-docker-compose build --no-cache
+docker build -t my-app .
+docker run -p 3000:3000 my-app
 ```
-
-**Port already in use**
-
-```bash
-lsof -i :5173  # Find process
-kill -9 <PID>  # Kill process
-```
-
-**PDF download not working**
-
-- Check browser console for errors
-- Ensure PDF library is loaded
-- Test in different browsers
-
-**Theme not persisting**
-
-- Check localStorage permissions
-- Clear browser cache
-- Verify theme context setup
 
 ---
 
-**Performance**: ⚡ Sub-1s load times | 📱 Mobile-first | ♿ Accessible | 🌙 Dark mode default | ⌨️ Typewriter animations
+# Template Documentation
+
+## 🎯 What is This Template?
+
+A comprehensive project template following **Context Engineering** principles for production-ready applications with built-in quality, accessibility, and performance standards.
+
+### Key Features
+- **Context-first documentation** for AI-assisted development
+- **Production-ready configurations** for React/TypeScript
+- **Built-in quality gates** (testing, linting, accessibility)
+- **Example patterns** abstracted from real projects
+- **Comprehensive PRPs** (Product Requirements Prompts)
+
+## 📚 Context Engineering Principles
+
+1. **Context is King**: More context = better implementation
+2. **Examples Over Instructions**: Concrete examples in `examples/`
+3. **Validation Loops**: Quality checks at every level
+4. **Accessibility for All**: WCAG 2.1 AA compliance
+5. **Privacy by Default**: All tracking opt-in
+
+## 📖 Key Resources
+
+- **[PRPs/](PRPs/)**: Feature specifications and context
+- **[examples/](examples/)**: Code patterns to follow
+- **[specs/](specs/)**: Technical requirements
+- **[ai_docs/](ai_docs/)**: AI assistant context
+- **[CLAUDE.md](CLAUDE.md)**: Project-specific AI context
+- **[TEMPLATE_README.md](TEMPLATE_README.md)**: Full template documentation
+
+## 🏗️ Template Origin
+
+This template was abstracted from the [TortoiseWolfe/Resume](https://github.com/TortoiseWolfe/Resume) project, which serves as the golden standard for structure and patterns.
+
+## 📝 License
+
+MIT
+
+---
+
+**Remember**: Context is King, Examples Over Instructions, Validation Loops are Critical!

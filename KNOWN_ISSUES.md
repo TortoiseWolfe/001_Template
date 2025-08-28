@@ -1,6 +1,30 @@
 # Known Issues
 
-This document tracks known bugs and issues in the codebase that are not yet resolved.
+This document tracks known bugs and issues in the template that are not yet resolved.
+
+## Template Issues
+
+### GitHub Pages Deployment - Empty Demo
+**Status:** 🟡 Expected - Template is empty by design  
+**URL:** https://tortoisewolfe.github.io/001_Template/  
+**Impact:** Demo page shows only background, no content
+
+**Description:**
+The template's GitHub Pages deployment shows an empty page because all implementation code has been removed to create a clean starting point.
+
+**Resolution:**
+This is expected behavior. The template is designed to be cloned and built upon, not run as-is. Content will appear once developers start building their application using the template.
+
+**Workaround:**
+- Clone the template and start building your application
+- The demo will work once you add your own components to src/
+- For a working example, see the original project: https://tortoisewolfe.github.io/Resume/
+
+---
+
+## Legacy Issues from Original Project
+
+These issues were present in the original Resume project and can be ignored for the template:
 
 ## Test Failures
 

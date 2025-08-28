@@ -1,11 +1,11 @@
 {
-  "name": "personal-resume",
+  "name": "project-template",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "module",
-  "description": "A modern, responsive single-page resume with steampunk-themed dark mode",
-  "author": "TurtleWolfe",
-  "license": "UNLICENSED",
+  "description": "Project template following Context Engineering principles",
+  "author": "[YOUR_NAME]",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
