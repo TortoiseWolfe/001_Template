@@ -638,7 +638,7 @@ export const IntakeForm: React.FC = () => {
             const calendlyContainer = document.getElementById(
               'calendly-inline-widget'
             );
-            if (calendlyContainer) {
+            if (calendlyContainer && window.Calendly) {
               calendlyContainer.style.display = 'block';
               window.Calendly.initInlineWidget({
                 url: calendlyUrl,
