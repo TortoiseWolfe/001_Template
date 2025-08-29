@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import emailjs from '@emailjs/browser';
 import './IntakeForm.css';
 import './IntakeForm.override.css';
 
 interface FormData {
   projectName: string;
+  projectType: string[];
   businessDescription: string;
   mainChallenge: string;
   targetUsers: string;
@@ -34,25 +34,22 @@ interface ValidationErrors {
 }
 
 export const IntakeForm: React.FC = () => {
-  // Try to load saved data immediately
+  // Always start with CRUDgames defaults (no localStorage on initial load)
   const getInitialFormData = (): FormData => {
-    const savedData = localStorage.getItem('intakeFormData');
-    if (savedData) {
-      try {
-        const parsed = JSON.parse(savedData);
-        console.log('Initializing form with saved data:', parsed.data);
-        return parsed.data;
-      } catch (error) {
-        console.error('Failed to parse saved data:', error);
-      }
-    }
-    // Return empty form if no saved data
+    // Skip localStorage - always start fresh with defaults
+    // Form will still auto-save as user types
+    // Return CRUDgames example data
     return {
       projectName: '',
-      businessDescription: '',
-      mainChallenge: '',
-      targetUsers: '',
-      primaryGoal: '',
+      projectType: [],
+      businessDescription:
+        'We provide Software as a Service (SaaS) solutions, including our flagship location-based gaming platform geoLARP.com. Our focus is making custom software accessible to businesses of all sizes.',
+      mainChallenge:
+        'Helping small businesses discover that custom software is within their reach, while streamlining our client acquisition and consultation process.',
+      targetUsers:
+        "Small businesses and startups who need custom software but assume it's beyond their budget. We show them affordable, scalable solutions are possible.",
+      primaryGoal:
+        'Learn about our services and easily schedule a consultation to discuss their custom software needs.',
       userScale: '',
       userAccounts: [],
       payments: [],
@@ -64,7 +61,8 @@ export const IntakeForm: React.FC = () => {
       examples: '',
       brandPersonality: [],
       brandInfo: '',
-      successMetrics: '',
+      successMetrics:
+        'Generate 10+ qualified leads per month. Book 5+ discovery calls monthly. Build sustainable six-figure revenue stream. Maintain creative freedom and enjoyment in our work. Help small businesses achieve their software goals.',
       priority: '',
       additionalInfo: '',
       contactEmail: '',
@@ -193,18 +191,23 @@ export const IntakeForm: React.FC = () => {
     return `${Math.floor(diff / 86400)} days ago`;
   };
 
-  // Reset form - simple and normal
+  // Reset form to CRUDgames defaults
   const clearForm = () => {
     // Don't auto-save the cleared state
     justCleared.current = true;
 
-    // Reset all form fields
+    // Reset to CRUDgames example data
     setFormData({
       projectName: '',
-      businessDescription: '',
-      mainChallenge: '',
-      targetUsers: '',
-      primaryGoal: '',
+      projectType: [],
+      businessDescription:
+        'We provide Software as a Service (SaaS) solutions, including our flagship location-based gaming platform geoLARP.com. Our focus is making custom software accessible to businesses of all sizes.',
+      mainChallenge:
+        'Helping small businesses discover that custom software is within their reach, while streamlining our client acquisition and consultation process.',
+      targetUsers:
+        "Small businesses and startups who need custom software but assume it's beyond their budget. We show them affordable, scalable solutions are possible.",
+      primaryGoal:
+        'Learn about our services and easily schedule a consultation to discuss their custom software needs.',
       userScale: '',
       userAccounts: [],
       payments: [],
@@ -216,7 +219,8 @@ export const IntakeForm: React.FC = () => {
       examples: '',
       brandPersonality: [],
       brandInfo: '',
-      successMetrics: '',
+      successMetrics:
+        'Generate 10+ qualified leads per month. Book 5+ discovery calls monthly. Build sustainable six-figure revenue stream. Maintain creative freedom and enjoyment in our work. Help small businesses achieve their software goals.',
       priority: '',
       additionalInfo: '',
       contactEmail: '',
@@ -262,6 +266,11 @@ export const IntakeForm: React.FC = () => {
           : basicsPartial
             ? 'partial'
             : 'empty';
+      }
+
+      case 'projectType': {
+        const projectTypeComplete = formData.projectType.length > 0;
+        return projectTypeComplete ? 'complete' : 'empty';
       }
 
       case 'users': {
@@ -406,6 +415,11 @@ export const IntakeForm: React.FC = () => {
 
     if (!formData.mainChallenge.trim()) {
       errors.mainChallenge = "Please describe the problem we're solving";
+    }
+
+    // Project Type validation
+    if (formData.projectType.length === 0) {
+      errors.projectType = 'Please select at least one platform';
     }
 
     if (!formData.targetUsers.trim()) {
@@ -556,36 +570,28 @@ export const IntakeForm: React.FC = () => {
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
-    // Get EmailJS credentials from environment variables
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    // Get Web3Forms access key from environment variables
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
     const calendlyUrl = import.meta.env.VITE_CALENDLY_URL;
 
-    if (!serviceId || !templateId || !publicKey) {
+    if (!accessKey) {
       console.warn(
-        'EmailJS not configured. Please add credentials to .env file.'
+        'Web3Forms not configured. Please add VITE_WEB3FORMS_ACCESS_KEY to .env file.'
       );
       console.log('Form data:', formData);
-
-      // If EmailJS is not configured, just redirect to Calendly
-      if (calendlyUrl) {
-        window.open(calendlyUrl, '_blank');
-        setSubmitStatus('success');
-      } else {
-        alert('Form submitted (demo mode). Check console for details.');
-      }
+      setSubmitStatus('error');
       setIsSubmitting(false);
       return;
     }
 
     try {
-      // Initialize EmailJS
-      emailjs.init(publicKey);
-
-      // Prepare template params
-      const templateParams = {
+      // Prepare form data for Web3Forms
+      const web3FormData = {
+        access_key: accessKey,
+        subject: `New Project Inquiry: ${formData.projectName || 'Untitled'}`,
+        from_name: formData.projectName || 'Form Submission',
         project_name: formData.projectName,
+        project_type: formData.projectType.join(', '),
         business_description: formData.businessDescription,
         main_challenge: formData.mainChallenge,
         target_users: formData.targetUsers,
@@ -608,20 +614,49 @@ export const IntakeForm: React.FC = () => {
         contact_phone: formData.contactPhone,
         preferred_contact: formData.preferredContact,
         referral_source: formData.referralSource,
-        to_email: formData.contactEmail || 'default@example.com',
       };
 
-      // Send email
-      await emailjs.send(serviceId, templateId, templateParams);
+      // Send to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(web3FormData),
+      });
 
-      console.log('Form submitted successfully!');
-      setSubmitStatus('success');
+      const result = await response.json();
 
-      // Redirect to Calendly after successful submission
-      if (calendlyUrl) {
-        setTimeout(() => {
-          window.open(calendlyUrl, '_blank');
-        }, 1500);
+      if (result.success) {
+        console.log('Form submitted successfully!');
+        setSubmitStatus('success');
+
+        // Show Calendly inline widget after successful submission
+        if (calendlyUrl && window.Calendly) {
+          setTimeout(() => {
+            const calendlyContainer = document.getElementById(
+              'calendly-inline-widget'
+            );
+            if (calendlyContainer) {
+              calendlyContainer.style.display = 'block';
+              window.Calendly.initInlineWidget({
+                url: calendlyUrl,
+                parentElement: calendlyContainer,
+                prefill: {
+                  email: formData.contactEmail,
+                  name: formData.projectName,
+                  customAnswers: {
+                    a1: formData.contactPhone,
+                  },
+                },
+              });
+            }
+          }, 500);
+        }
+      } else {
+        console.error('Form submission failed:', result);
+        setSubmitStatus('error');
       }
     } catch (error) {
       console.error('Failed to send form:', error);
@@ -633,6 +668,69 @@ export const IntakeForm: React.FC = () => {
 
   return (
     <div className="intake-form">
+      {/* Halloween Special Banner */}
+      <div
+        style={{
+          background: `
+          radial-gradient(circle at 80% 20%, #ff8c00 0%, #ffa500 4%, transparent 8%),
+          radial-gradient(ellipse at 20% 80%, rgba(148,0,211,0.3) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 80%, rgba(75,0,130,0.3) 0%, transparent 50%),
+          radial-gradient(ellipse at 50% 50%, rgba(255,140,0,0.4) 0%, transparent 70%),
+          linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%)
+        `,
+          color: 'white',
+          padding: '1.5rem',
+          borderRadius: '12px',
+          marginBottom: '2rem',
+          boxShadow:
+            '0 8px 16px rgba(0, 0, 0, 0.4), inset 0 2px 8px rgba(255,255,255,0.1)',
+          textAlign: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        <h2
+          style={{
+            margin: '0 0 0.5rem 0',
+            fontSize: '1.75rem',
+            whiteSpace: 'nowrap',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+          }}
+        >
+          🎃 Halloween Special: Professional Landing Page - Only $100!
+        </h2>
+        <p
+          style={{
+            margin: '0',
+            fontSize: '1.125rem',
+            textShadow: '1px 1px 3px rgba(0,0,0,0.7)',
+          }}
+        >
+          ✓ Contact Form (Captures Leads) &nbsp; ✓ Calendly (Books Appointments)
+          &nbsp; ✓ Domain Included
+        </p>
+        <p
+          style={{
+            margin: '0.5rem 0 0 0',
+            fontSize: '0.875rem',
+            textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
+          }}
+        >
+          $100/year: Lead-capture website with scheduling + domain + 2hr support
+        </p>
+        <p
+          style={{
+            margin: '0.25rem 0 0 0',
+            fontSize: '0.875rem',
+            fontWeight: 'bold',
+            color: '#fbbf24',
+            textShadow: '2px 2px 3px rgba(0,0,0,0.9)',
+          }}
+        >
+          ⏰ Book by October 31st to lock in this price!
+        </p>
+      </div>
+
       <header className="form-header">
         <div
           style={{
@@ -775,6 +873,41 @@ export const IntakeForm: React.FC = () => {
           </div>
         </section>
 
+        {/* Project Type */}
+        <section className={getSectionClassName('projectType')}>
+          <h2>Project Type</h2>
+
+          <div className="form-group">
+            <label>
+              Platform <span className="required">*</span>
+            </label>
+            <div className="checkbox-group">
+              {[
+                'Website',
+                'Web Application',
+                'Mobile App',
+                'Desktop Application',
+                'Cross-Platform Solution',
+              ].map((option) => (
+                <label key={option} className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    value={option}
+                    checked={formData.projectType.includes(option)}
+                    onChange={() => handleCheckboxChange('projectType', option)}
+                  />
+                  <span>{option}</span>
+                </label>
+              ))}
+            </div>
+            {touched.has('projectType') && validationErrors.projectType && (
+              <span className="field-error">
+                {validationErrors.projectType}
+              </span>
+            )}
+          </div>
+        </section>
+
         {/* Your Users */}
         <section className={getSectionClassName('users')}>
           <h2>Your Users</h2>
@@ -785,8 +918,7 @@ export const IntakeForm: React.FC = () => {
                 <label htmlFor="targetUsers">
                   Target Users <span className="required">*</span>
                 </label>
-                <input
-                  type="text"
+                <textarea
                   id="targetUsers"
                   name="targetUsers"
                   value={formData.targetUsers}
@@ -794,6 +926,7 @@ export const IntakeForm: React.FC = () => {
                   onBlur={() => handleFieldBlur('targetUsers')}
                   placeholder="Customers, employees, both?"
                   autoComplete="on"
+                  rows={3}
                   className={`${getInputValidationClass('targetUsers', formData.targetUsers)} ${touched.has('targetUsers') && validationErrors.targetUsers ? 'error' : ''}`}
                 />
                 {touched.has('targetUsers') && validationErrors.targetUsers && (
@@ -807,8 +940,7 @@ export const IntakeForm: React.FC = () => {
                 <label htmlFor="primaryGoal">
                   Primary Goal <span className="required">*</span>
                 </label>
-                <input
-                  type="text"
+                <textarea
                   id="primaryGoal"
                   name="primaryGoal"
                   value={formData.primaryGoal}
@@ -816,6 +948,7 @@ export const IntakeForm: React.FC = () => {
                   onBlur={() => handleFieldBlur('primaryGoal')}
                   placeholder="What they need to accomplish"
                   autoComplete="on"
+                  rows={3}
                   className={`${getInputValidationClass('primaryGoal', formData.primaryGoal)} ${touched.has('primaryGoal') && validationErrors.primaryGoal ? 'error' : ''}`}
                 />
                 {touched.has('primaryGoal') && validationErrors.primaryGoal && (
@@ -1104,14 +1237,14 @@ export const IntakeForm: React.FC = () => {
 
               <div className="form-group">
                 <label htmlFor="brandInfo">Brand Guidelines/Colors</label>
-                <input
-                  type="text"
+                <textarea
                   id="brandInfo"
                   name="brandInfo"
                   value={formData.brandInfo}
                   onChange={handleInputChange}
                   onBlur={() => handleFieldBlur('brandInfo')}
                   placeholder="Current website or brand guide"
+                  rows={4}
                   className={getInputValidationClass(
                     'brandInfo',
                     formData.brandInfo
@@ -1407,12 +1540,23 @@ export const IntakeForm: React.FC = () => {
           )}
 
           {submitStatus === 'success' && (
-            <div className="success-message">
-              ✅ Thank you! Your project information has been received.
-              {import.meta.env.VITE_CALENDLY_URL && (
-                <p>Redirecting you to schedule a call...</p>
-              )}
-            </div>
+            <>
+              <div className="success-message">
+                ✅ Thank you! Your project information has been received.
+                {import.meta.env.VITE_CALENDLY_URL && (
+                  <p>Schedule your consultation below:</p>
+                )}
+              </div>
+              <div
+                id="calendly-inline-widget"
+                className="calendly-inline-widget"
+                style={{
+                  minWidth: '320px',
+                  height: '630px',
+                  display: 'none',
+                }}
+              />
+            </>
           )}
           {submitStatus === 'error' && (
             <div className="error-message">
@@ -1447,6 +1591,10 @@ export const IntakeForm: React.FC = () => {
             <li>
               {formData.projectName ? '✅' : '❌'} Project Name:{' '}
               {formData.projectName ? `"${formData.projectName}"` : 'Empty'}
+            </li>
+            <li>
+              {formData.projectType.length > 0 ? '✅' : '❌'} Project Type:{' '}
+              {formData.projectType.length} selected
             </li>
             <li>
               {formData.businessDescription ? '✅' : '❌'} Business:{' '}

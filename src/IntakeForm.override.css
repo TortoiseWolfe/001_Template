@@ -5,24 +5,44 @@
   --input-bg: #374151 !important;
 }
 
-/* Base styling for ALL inputs with consistent borders */
-input,
+/* NUCLEAR OPTION - Override EVERYTHING */
+#root input:not([type='checkbox']):not([type='radio']),
+#root textarea,
+#root select,
+body input:not([type='checkbox']):not([type='radio']),
+body textarea,
+body select,
+.intake-form input:not([type='checkbox']):not([type='radio']),
+.intake-form textarea,
+.intake-form select,
+.form-group input:not([type='checkbox']):not([type='radio']),
+.form-group textarea,
+.form-group select,
+input#projectName,
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input:not([type='checkbox']):not([type='radio']),
 textarea,
 select {
   background: #374151 !important;
   background-color: #374151 !important;
   background-image: none !important;
   color: #e5e7eb !important;
-  border: 2px solid #6b7280 !important; /* Visible grey border */
+  border: 2px solid #6b7280 !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
+  -webkit-appearance: none !important;
+  /* Prevent autofill from changing background immediately */
+  transition: background-color 5000s ease-in-out 0s !important;
 }
 
-/* Double enforce for all input types */
-input[type] {
+/* Double enforce for text input types only */
+input[type]:not([type='checkbox']):not([type='radio']) {
   background: #374151 !important;
   background-color: #374151 !important;
   border: 2px solid #6b7280 !important;
+  transition: background-color 5000s ease-in-out 0s !important;
 }
 
 /* Override ALL possible input states */
@@ -99,7 +119,12 @@ input[type='month'],
 input[type='week'],
 input:not([type]),
 textarea,
-select {
+select,
+.form-group input[type='text'],
+.form-group input[type='email'],
+.form-group input[type='tel'],
+.form-group textarea,
+.form-group select {
   background: #374151 !important;
   background-color: #374151 !important;
   color: #e5e7eb !important;
@@ -127,12 +152,45 @@ textarea:-webkit-autofill:active,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus,
-select:-webkit-autofill:active {
+select:-webkit-autofill:active,
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px #374151 inset !important;
   box-shadow: 0 0 0 1000px #374151 inset !important;
   -webkit-text-fill-color: #e5e7eb !important;
   background-color: #374151 !important;
   background-clip: padding-box !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* Autofill with validation classes */
+input.input-valid:-webkit-autofill,
+input.input-valid:-webkit-autofill:hover,
+input.input-valid:-webkit-autofill:focus,
+input.input-valid:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #052e16 inset !important;
+  box-shadow: 0 0 0 1000px #052e16 inset !important;
+  -webkit-text-fill-color: #bbf7d0 !important;
+}
+
+input.input-empty:-webkit-autofill,
+input.input-empty:-webkit-autofill:hover,
+input.input-empty:-webkit-autofill:focus,
+input.input-empty:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #450a0a inset !important;
+  box-shadow: 0 0 0 1000px #450a0a inset !important;
+  -webkit-text-fill-color: #fef08a !important;
+}
+
+input.input-partial:-webkit-autofill,
+input.input-partial:-webkit-autofill:hover,
+input.input-partial:-webkit-autofill:focus,
+input.input-partial:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #451a03 inset !important;
+  box-shadow: 0 0 0 1000px #451a03 inset !important;
+  -webkit-text-fill-color: #fde68a !important;
 }
 
 /* Validation state colors with dark theme - Fixed selectors */
@@ -141,7 +199,7 @@ textarea.input-empty,
 select.input-empty {
   background-color: #450a0a !important;
   border: 2px solid #ef4444 !important;
-  color: #fef08a !important; /* Yellow text for better readability on dark red */
+  color: #e5e7eb !important;
   font-weight: 600 !important;
 }
 
@@ -150,7 +208,7 @@ textarea.input-partial,
 select.input-partial {
   background-color: #451a03 !important;
   border: 2px solid #f59e0b !important;
-  color: #fde68a !important;
+  color: #e5e7eb !important;
   font-weight: 600 !important;
 }
 
@@ -159,17 +217,25 @@ textarea.input-valid,
 select.input-valid {
   background-color: #052e16 !important;
   border: 2px solid #22c55e !important;
-  color: #bbf7d0 !important;
+  color: #e5e7eb !important;
   font-weight: 600 !important;
 }
 
 /* Focus states that PRESERVE validation colors */
 input.input-empty:focus,
 textarea.input-empty:focus,
-select.input-empty:focus {
+select.input-empty:focus,
+input.input-empty.error:focus,
+textarea.input-empty.error:focus,
+select.input-empty.error:focus,
+#projectName.input-empty:focus,
+#projectName.input-empty.error:focus,
+input#projectName.input-empty:focus,
+input#projectName.input-empty.error:focus {
   background-color: #450a0a !important;
+  background: #450a0a !important;
   border: 2px solid #ef4444 !important;
-  color: #fef08a !important;
+  color: #e5e7eb !important;
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3) !important;
 }
@@ -179,7 +245,7 @@ textarea.input-partial:focus,
 select.input-partial:focus {
   background-color: #451a03 !important;
   border: 2px solid #f59e0b !important;
-  color: #fde68a !important;
+  color: #e5e7eb !important;
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3) !important;
 }
@@ -189,7 +255,7 @@ textarea.input-valid:focus,
 select.input-valid:focus {
   background-color: #052e16 !important;
   border: 2px solid #22c55e !important;
-  color: #bbf7d0 !important;
+  color: #e5e7eb !important;
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3) !important;
 }
@@ -205,10 +271,26 @@ select:focus:not(.input-empty):not(.input-partial):not(.input-valid) {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
 }
 
+/* Fix for inputs with validation classes when focused */
+.form-group input.input-valid:focus {
+  background: #052e16 !important;
+  background-color: #052e16 !important;
+}
+
+.form-group input.input-empty:focus {
+  background: #450a0a !important;
+  background-color: #450a0a !important;
+}
+
+.form-group input.input-partial:focus {
+  background: #451a03 !important;
+  background-color: #451a03 !important;
+}
+
 /* Placeholder text color for dark theme */
 input::placeholder,
 textarea::placeholder {
-  color: #9ca3af !important;
+  color: #d1d5db !important; /* Brighter gray for better visibility */
   opacity: 1 !important;
 }
 
@@ -230,10 +312,18 @@ select:disabled {
 /* Fix radio and checkbox styling for dark theme */
 input[type='radio'],
 input[type='checkbox'] {
-  accent-color: #3b82f6 !important;
+  accent-color: #60a5fa !important;
   width: 18px !important;
   height: 18px !important;
   cursor: pointer !important;
+  opacity: 1 !important;
+  -webkit-appearance: auto !important;
+  appearance: auto !important;
+}
+
+input[type='radio'] {
+  -webkit-appearance: auto !important;
+  appearance: auto !important;
 }
 
 .radio-label,
@@ -357,4 +447,28 @@ input[type='checkbox'] {
 
 .save-status .saved {
   color: #34d399 !important;
+}
+
+/* Calendly inline widget styling */
+.calendly-inline-widget {
+  background: #1f2937 !important;
+  border: 2px solid #374151 !important;
+  margin: 2rem auto !important;
+  max-width: 100% !important;
+}
+
+/* Make textareas bigger for long content */
+textarea[name='businessDescription'],
+textarea[name='mainChallenge'],
+textarea[name='targetUsers'],
+textarea[name='primaryGoal'],
+textarea[name='brandInfo'],
+textarea[name='successMetrics'] {
+  min-height: 180px !important;
+  color: #e5e7eb !important;
+}
+
+/* Force all textareas with values to have light text */
+textarea:not(:placeholder-shown) {
+  color: #e5e7eb !important;
 }
