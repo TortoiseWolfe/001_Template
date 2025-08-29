@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Update this for GitHub Pages: '/repo-name/'
+  base: '/001_Template/', // GitHub Pages deployment path
   server: {
     host: true, // Needed for Docker
     port: 5173,
