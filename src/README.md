@@ -5,6 +5,7 @@ This is where your application code will live. The structure will depend on your
 ## Common Structure Examples
 
 ### React/TypeScript Project
+
 ```
 src/
 ├── components/       # React components
@@ -20,6 +21,7 @@ src/
 ```
 
 ### Node.js/Express Project
+
 ```
 src/
 ├── routes/          # API routes
@@ -34,6 +36,7 @@ src/
 ```
 
 ### Full-Stack Project
+
 ```
 src/
 ├── client/          # Frontend code

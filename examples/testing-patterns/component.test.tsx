@@ -181,9 +181,12 @@ describe('DataDisplay Component', () => {
     it('should render metadata when provided', () => {
       render(<DataDisplay data={mockData} />);
 
-      // Check date rendering
-      const dateElement = screen.getByText('1/1/2024');
-      expect(dateElement.tagName).toBe('TIME');
+      // Check date rendering (using a more flexible date check due to timezone differences)
+      const dateElement = screen
+        .getAllByRole('listitem')[0]
+        .querySelector('time');
+      expect(dateElement).toBeInTheDocument();
+      expect(dateElement?.tagName).toBe('TIME');
       expect(dateElement).toHaveAttribute('datetime', '2024-01-01');
 
       // Check tags rendering
