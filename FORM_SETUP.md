@@ -4,41 +4,24 @@
 
 The intake form now supports:
 
-- Email notifications via EmailJS
+- Email notifications via Web3Forms
 - Automatic redirect to Calendly after submission
 - Works without configuration (demo mode)
 
 ## Configuration Steps
 
-### 1. EmailJS Setup (Optional but Recommended)
+### 1. Web3Forms Setup (Optional but Recommended)
 
-If you already have an EmailJS account from before, you can use the same credentials. The same API key works for multiple forms.
+Web3Forms is simpler than EmailJS - you only need one access key, and you can reuse the same key across multiple forms.
 
-#### Get Your EmailJS Credentials:
+#### Get Your Web3Forms Access Key:
 
-1. Go to [EmailJS Dashboard](https://dashboard.emailjs.com/)
-2. Sign in or create a free account
-3. Get your credentials:
-   - **Service ID**: Found in Email Services section
-   - **Template ID**: Create a new template (see below)
-   - **Public Key**: Found in Account > API Keys
+1. Go to [Web3Forms](https://web3forms.com/)
+2. Click "Create Access Key" (no signup required!)
+3. Enter your email address where you want to receive form submissions
+4. Copy the access key that's generated
 
-#### Create an Email Template:
-
-1. In EmailJS dashboard, go to Email Templates
-2. Create a new template
-3. Use these variables in your template:
-   ```
-   Project Name: {{project_name}}
-   Business: {{business_description}}
-   Challenge: {{main_challenge}}
-   Target Users: {{target_users}}
-   Timeline: {{timeline}}
-   Budget: {{budget}}
-   Contact Email: {{contact_email}}
-   Contact Phone: {{contact_phone}}
-   ... (all other fields are available)
-   ```
+That's it! No templates to configure, no multiple IDs to manage.
 
 ### 2. Calendly Setup
 
@@ -50,10 +33,8 @@ If you already have an EmailJS account from before, you can use the same credent
 Edit the `.env` file in the root directory:
 
 ```env
-# EmailJS Configuration
-VITE_EMAILJS_SERVICE_ID=your_actual_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_actual_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_actual_public_key
+# Web3Forms Configuration
+VITE_WEB3FORMS_ACCESS_KEY=your_actual_access_key
 
 # Calendly Configuration
 VITE_CALENDLY_URL=https://calendly.com/yourname/30min
@@ -73,7 +54,7 @@ npm run dev
 ### With Configuration:
 
 1. User fills out the form
-2. Form data is emailed to you via EmailJS
+2. Form data is sent to your email via Web3Forms
 3. Success message appears
 4. User is redirected to your Calendly page to schedule a call
 
@@ -88,7 +69,7 @@ npm run dev
 
 1. Fill out the form completely
 2. Submit
-3. Check your email (if EmailJS is configured)
+3. Check your email (if Web3Forms is configured)
 4. Verify Calendly redirect opens in new tab
 
 ## Troubleshooting
@@ -96,8 +77,9 @@ npm run dev
 ### Form not sending emails?
 
 - Check browser console for errors
-- Verify EmailJS credentials in .env
-- Make sure email template variables match
+- Verify Web3Forms access key in .env
+- Make sure the access key is correct (starts with a UUID)
+- Check that your email is correctly set in Web3Forms
 
 ### Calendly not opening?
 
@@ -105,57 +87,93 @@ npm run dev
 - Make sure URL is complete (https://...)
 - Check popup blocker settings
 
-### Getting CORS errors?
+### Getting errors?
 
-- Make sure you're using the Public Key, not Private Key
-- Check EmailJS service is active
+- Make sure you're using the correct access key
+- Web3Forms has a generous free tier (unlimited forms, 250 submissions/month)
+- Check the browser console for detailed error messages
 
-## Email Template Example
+## Email Format
 
-Here's a sample EmailJS template you can use:
+Web3Forms automatically formats your email with all the form fields. The email you receive will include:
+
+- **Subject**: "New Project Inquiry: [Project Name]"
+- **All form fields** organized in a clean, readable format
+- **Contact information** prominently displayed
+- **Timestamp** of submission
+
+## What You'll Receive
+
+When someone submits the form, you'll get an email like this:
 
 ```
-Subject: New Project Inquiry: {{project_name}}
+Subject: New Project Inquiry: CRUDgames.com
 
-Hello,
-
-You have a new project inquiry!
+New submission from your intake form:
 
 PROJECT DETAILS
 ===============
-Project Name: {{project_name}}
-Business: {{business_description}}
-Main Challenge: {{main_challenge}}
+Project Name: CRUDgames.com
+Business: We provide Software as a Service (SaaS) solutions...
+Main Challenge: Helping small businesses discover that custom software...
 
 SCOPE
 =====
-Target Users: {{target_users}}
-Primary Goal: {{primary_goal}}
-User Scale: {{user_scale}}
+Target Users: Small businesses and startups...
+Primary Goal: Learn about our services...
+User Scale: < 100
 
 REQUIREMENTS
 ============
-Timeline: {{timeline}}
-Budget: {{budget}}
-Priority: {{priority}}
+Timeline: asap
+Budget: startup
+Priority: design
+
+FEATURES
+========
+User Accounts: none
+Payments: one-time, donations
+Content Features: managed, blog, downloads
+Communication: contact
+Special Features: search, calendar, portfolio, twitch
+
+BRAND
+=====
+Personality: friendly, modern, playful
+Brand Info: Cyberpunk aesthetic with neon blues...
+Examples: https://tortoisewolfe.github.io/Resume/
 
 CONTACT
 =======
-Email: {{contact_email}}
-Phone: {{contact_phone}}
-Preferred Contact: {{preferred_contact}}
+Email: [client email]
+Phone: [client phone]
+Preferred Contact: [preference]
+
+SUCCESS METRICS
+===============
+- Generate 10+ qualified leads per month
+- Book 5+ discovery calls monthly
+- Build sustainable six-figure revenue stream
+- Maintain creative freedom and enjoyment in our work
+- Help small businesses achieve their software goals
 
 ADDITIONAL INFO
 ===============
-{{additional_info}}
-
----
-This form was submitted from your project intake form.
+[Any additional notes]
 ```
 
 ## Free Tier Limits
 
-- **EmailJS Free**: 200 emails/month, 2 templates
+- **Web3Forms Free**: 250 submissions/month, unlimited forms
 - **Calendly Free**: Unlimited scheduling, 1 event type
 
 Both services offer paid plans if you need more.
+
+## Advantages of Web3Forms over EmailJS
+
+1. **Simpler Setup**: Only one access key needed (vs 3 credentials for EmailJS)
+2. **No Account Required**: Get started immediately without signing up
+3. **Better Free Tier**: 250 submissions/month vs 200 for EmailJS
+4. **No Template Management**: Automatic formatting of all fields
+5. **Spam Protection**: Built-in honeypot and reCAPTCHA support
+6. **Reusable**: Same access key works across multiple forms and projects

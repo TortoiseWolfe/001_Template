@@ -1,9 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_EMAILJS_SERVICE_ID: string;
-  readonly VITE_EMAILJS_TEMPLATE_ID: string;
-  readonly VITE_EMAILJS_PUBLIC_KEY: string;
+  readonly VITE_WEB3FORMS_ACCESS_KEY: string;
   readonly VITE_CALENDLY_URL: string;
 }
 
@@ -14,4 +12,20 @@ interface ImportMeta {
 declare module '*.css' {
   const content: Record<string, string>;
   export default content;
+}
+
+interface Window {
+  Calendly?: {
+    initInlineWidget: (options: {
+      url: string;
+      parentElement: Element | null;
+      prefill?: {
+        email?: string;
+        name?: string;
+        customAnswers?: {
+          a1?: string;
+        };
+      };
+    }) => void;
+  };
 }

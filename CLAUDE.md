@@ -87,6 +87,7 @@ docker-compose logs -f
 ## Development Standards
 
 ### Code Quality
+
 - TypeScript strict mode enabled
 - ESLint and Prettier configured
 - No `any` types
@@ -94,12 +95,14 @@ docker-compose logs -f
 - Clear function and variable names
 
 ### Testing Requirements
+
 - Unit tests for all utilities (>80% coverage)
 - Integration tests for critical flows
 - E2E tests for user journeys
 - Accessibility tests (WCAG 2.1 AA)
 
 ### Accessibility
+
 - WCAG 2.1 AA compliance
 - Keyboard navigation support
 - Screen reader tested
@@ -107,6 +110,7 @@ docker-compose logs -f
 - No color-only information
 
 ### Security
+
 - Environment variables for secrets
 - Input validation on all forms
 - XSS prevention measures
@@ -116,14 +120,17 @@ docker-compose logs -f
 ## Current Context
 
 ### Active Development
+
 - [ ] [Current feature being worked on]
 - [ ] [Next priority]
 
 ### Known Issues
-- [Issue 1]
+
+- **Input backgrounds turning white on focus**: Despite extensive CSS overrides in `IntakeForm.override.css`, input fields (especially project name) occasionally show white backgrounds when focused or typed in. Multiple fixes applied with `!important` flags but issue persists intermittently. Current workaround: Aggressive CSS overrides at lines 220-237 in override.css.
 - [Issue 2]
 
 ### Recent Changes
+
 - [Recent change 1]
 - [Recent change 2]
 
@@ -139,12 +146,14 @@ When working on this project:
 6. **Document changes**: Update relevant documentation
 
 ### Before Making Changes
+
 - Read relevant PRPs in `PRPs/` directory
 - Check examples in `examples/` directory
 - Review specs in `specs/` directory
 - Understand current architecture
 
 ### After Making Changes
+
 - Run validation loops (lint, test, type-check)
 - Update documentation if needed
 - Check accessibility
@@ -155,15 +164,19 @@ When working on this project:
 [Add any project-specific information, patterns, or requirements here]
 
 ### Business Logic
+
 [Describe core business logic and rules]
 
 ### API Endpoints (if applicable)
+
 [List main API endpoints and their purposes]
 
 ### State Management
+
 [Describe state management approach]
 
 ### Deployment Process
+
 [Describe how the project is deployed]
 
 ## Important Notes
