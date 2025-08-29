@@ -765,7 +765,6 @@ export const IntakeForm: React.FC = () => {
               placeholder="Describe the main challenge or opportunity"
               rows={3}
               className={`${getInputValidationClass('mainChallenge', formData.mainChallenge)} ${touched.has('mainChallenge') && validationErrors.mainChallenge ? 'error' : ''}`}
-              onBlur={() => handleFieldBlur('mainChallenge')}
               autoComplete="on"
             />
             {touched.has('mainChallenge') && validationErrors.mainChallenge && (
