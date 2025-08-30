@@ -1,191 +1,452 @@
-# Claude AI Assistant Context
+# Claude AI Context - Next.js Funnel Conversion Template
 
 ## Project Overview
-
-[PROJECT_NAME] - [Brief description of what this project does]
+Production-ready Next.js template for high-converting funnel pages with intake forms, Calendly integration, and comprehensive component library. Optimized for AI-assisted development with detailed PRPs (Product Requirements Prompts).
 
 ## Tech Stack
-
-- **Frontend**: [React | Vue | Angular | Vanilla]
-- **Backend**: [Node.js | Python | Go | None]
-- **Database**: [PostgreSQL | MongoDB | Redis | None]
-- **Styling**: [CSS Modules | Tailwind | Styled Components]
-- **Testing**: [Vitest | Jest | Pytest]
-- **Development**: [Docker | Local]
-- **Deployment**: [GitHub Pages | Vercel | AWS | Heroku]
+- **Framework**: Next.js 15.5.2 with App Router (Static Export)
+- **Language**: TypeScript 5.9.2 (strict mode)
+- **UI Library**: React 19.1.1 + shadcn/ui
+- **Styling**: Tailwind CSS 4.1.12
+- **Forms**: React Hook Form 7.62.0 + Zod 4.1.5 validation
+- **Email**: EmailJS 4.4.1 (client-side) / Resend (server-side)
+- **Scheduling**: react-calendly 4.4.0
+- **Component Dev**: Storybook 9.1.3
+- **Testing**: Vitest 3.2.4 + React Testing Library 16.1.0
+- **Deployment**: GitHub Pages (static export)
+- **Analytics**: Google Analytics 4
+- **Monitoring**: Sentry (errors), Vercel Analytics (performance)
+- **Node.js**: 22.x LTS (recommended)
 
 ## Project Structure
-
 ```
-├── src/                    # Application source code
-├── public/                 # Static assets
-├── examples/              # Code patterns and examples
-├── PRPs/                  # Product Requirements Prompts
-├── specs/                 # Technical specifications
-├── ai_docs/               # AI assistant documentation
-├── tests/                 # Test suites
-├── config/                # Configuration files
-├── docs/                  # Human documentation
-└── .github/workflows/     # CI/CD pipelines
+src/
+├── app/                    # Next.js App Router
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Landing page
+│   ├── thank-you/         # Thank you page
+│   ├── error/             # Error page
+│   └── api/               # API routes (optional)
+├── components/
+│   ├── atoms/             # Basic components (Button, Input, etc.)
+│   ├── molecules/         # Compound components (FormField, etc.)
+│   ├── organisms/         # Complex components (IntakeForm, etc.)
+│   └── templates/         # Page templates
+├── lib/
+│   ├── email/             # Email service integration
+│   ├── validation/        # Zod schemas
+│   ├── utils/             # Utility functions
+│   └── hooks/             # Custom React hooks
+├── prp/                   # Product Requirements Prompts
+│   ├── atoms/             # Atomic component specs
+│   ├── molecules/         # Molecular component specs
+│   ├── organisms/         # Organism component specs
+│   ├── templates/         # Page template specs
+│   └── system/            # System-wide specs
+├── stories/               # Storybook stories
+└── tests/                 # Test files
 ```
 
-## Common Commands
-
-### Development
-
+## Development Commands
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Run tests
-npm test
-
-# Type checking
-npm run type-check
-
-# Linting
-npm run lint
-
-# Format code
-npm run format
-
-# Build for production
-npm run build
+npm run dev          # Start Next.js dev server (localhost:3000)
+npm run build        # Build for production (static export)
+npm run start        # Serve production build
+npm run storybook    # Start Storybook (localhost:6006)
+npm run test         # Run tests with Vitest
+npm run test:e2e     # Run E2E tests with Playwright
+npm run lint         # Lint with ESLint
+npm run type-check   # TypeScript type checking
+npm run format       # Format with Prettier
+npm run analyze      # Bundle size analysis
 ```
 
-### Docker (if applicable)
+## Component Development Guidelines
 
-```bash
-# Start with Docker Compose
-docker-compose up --build
-
-# Stop services
-docker-compose down
-
-# View logs
-docker-compose logs -f
+### File Structure Pattern
+```
+components/ComponentName/
+├── ComponentName.tsx          # Main component
+├── ComponentName.stories.tsx  # Storybook stories
+├── ComponentName.test.tsx     # Unit tests
+├── ComponentName.module.css   # CSS modules (if needed)
+├── index.ts                   # Public exports
+└── README.md                  # Component documentation
 ```
 
-## Key Files
+### Component Template
+```typescript
+import { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
 
-- **package.json**: Dependencies and scripts
-- **vite.config.ts**: Build configuration (if using Vite)
-- **.env.example**: Environment variables template
-- **docker-compose.yml**: Docker services (if applicable)
-- **PRPs/**: Feature requirements and context
+interface ComponentNameProps {
+  className?: string;
+  children?: React.ReactNode;
+  // Add specific props with JSDoc comments
+}
+
+export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <div 
+        ref={ref} 
+        className={cn('base-styles', className)} 
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+ComponentName.displayName = 'ComponentName';
+```
+
+### Import Order Convention
+1. React/Next.js imports
+2. Third-party libraries
+3. Local components
+4. Utilities/hooks
+5. Types/interfaces
+6. Styles
+
+## Form Implementation Pattern
+
+### React Hook Form + Zod
+```typescript
+const schema = z.object({
+  email: z.string().email('Invalid email'),
+  name: z.string().min(2, 'Name required'),
+});
+
+type FormData = z.infer<typeof schema>;
+
+const form = useForm<FormData>({
+  resolver: zodResolver(schema),
+  defaultValues: { email: '', name: '' }
+});
+```
+
+### Security Measures
+- **Honeypot fields**: Hidden fields to catch bots
+- **Rate limiting**: Client-side submission limits
+- **Input sanitization**: XSS prevention
+- **CSRF protection**: Token validation
+- **Environment variables**: Never expose API keys
+
+## State Management Approach
+- **Local state**: useState for component state
+- **Form state**: React Hook Form for forms
+- **Global state**: Context API for app-wide state
+- **Server state**: React Query for API data
+- **URL state**: Next.js router for navigation
+
+## Styling Conventions
+
+### Tailwind CSS Classes
+```tsx
+// Use cn() utility for conditional classes
+className={cn(
+  'base-class',
+  variant === 'primary' && 'primary-styles',
+  disabled && 'disabled-styles',
+  className // Allow override
+)}
+```
+
+### Design Tokens (CSS Variables)
+```css
+:root {
+  /* Colors */
+  --primary: hsl(222, 100%, 40%);
+  --secondary: hsl(220, 9%, 46%);
+  --destructive: hsl(0, 84%, 60%);
+  
+  /* Spacing */
+  --space-unit: 8px;
+  
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+```
+
+## Testing Requirements
+
+### Test Coverage Goals
+- Unit tests: 80% minimum
+- Integration tests: Critical paths
+- E2E tests: User journeys
+- Accessibility tests: All components
+- Visual regression: Key components
+
+### Test File Pattern
+```typescript
+describe('ComponentName', () => {
+  it('renders with default props');
+  it('handles user interaction');
+  it('displays error state');
+  it('is accessible');
+  it('matches snapshot');
+});
+```
+
+## Accessibility Standards
+
+### WCAG 2.1 AA Requirements
+- Color contrast: 4.5:1 minimum
+- Keyboard navigation: Full support
+- Screen readers: Proper ARIA labels
+- Focus management: Visible indicators
+- Touch targets: 44x44px minimum
+- Error messages: Clear and linked
+
+### Implementation Checklist
+- [ ] Semantic HTML elements
+- [ ] ARIA labels and descriptions
+- [ ] Keyboard event handlers
+- [ ] Focus trap for modals
+- [ ] Skip navigation links
+- [ ] Alt text for images
 
 ## Performance Targets
 
-- First Contentful Paint < 1 second
-- Bundle size < 500KB gzipped
-- Lighthouse Performance score > 90
-- Test coverage > 80%
+### Core Web Vitals
+- **LCP** (Largest Contentful Paint): < 2.5s
+- **FID** (First Input Delay): < 100ms
+- **CLS** (Cumulative Layout Shift): < 0.1
+- **FCP** (First Contentful Paint): < 1.0s
+- **TTI** (Time to Interactive): < 3.5s
 
-## Development Standards
+### Optimization Strategies
+- Static export for GitHub Pages
+- Image optimization with next/image
+- Code splitting with dynamic imports
+- Font subsetting and preloading
+- CSS/JS minification
+- CDN for static assets
 
-### Code Quality
+## Security Guidelines
 
-- TypeScript strict mode enabled
-- ESLint and Prettier configured
-- No `any` types
-- Maximum file size: 500 lines
-- Clear function and variable names
+### Form Security
+```typescript
+// Never trust client input
+const sanitizedInput = DOMPurify.sanitize(userInput);
 
-### Testing Requirements
+// Rate limiting
+if (!checkRateLimit(userId)) {
+  throw new Error('Too many attempts');
+}
 
-- Unit tests for all utilities (>80% coverage)
-- Integration tests for critical flows
-- E2E tests for user journeys
-- Accessibility tests (WCAG 2.1 AA)
+// Validate server-side
+const validated = await serverValidate(data);
+```
 
-### Accessibility
+### Environment Variables
+```bash
+# .env.local (never commit)
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=xxx  # Public keys only
+EMAILJS_PRIVATE_KEY=xxx              # Never expose
+```
 
-- WCAG 2.1 AA compliance
-- Keyboard navigation support
-- Screen reader tested
-- Color contrast ratios met
-- No color-only information
+## Deployment Configuration
 
-### Security
+### GitHub Pages Setup
+```javascript
+// next.config.js
+module.exports = {
+  output: 'export',
+  basePath: process.env.NODE_ENV === 'production' ? '/repo-name' : '',
+  images: { unoptimized: true },
+  trailingSlash: true,
+};
+```
 
-- Environment variables for secrets
-- Input validation on all forms
-- XSS prevention measures
-- CSRF protection (if applicable)
-- Regular dependency updates
+### GitHub Actions Workflow
+```yaml
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/deploy-pages@v4
+```
 
-## Current Context
+## Analytics Implementation
 
-### Active Development
+### Google Analytics 4
+```typescript
+// Track custom events
+gtag('event', 'form_submission', {
+  form_name: 'intake_form',
+  form_location: 'landing_page',
+  submission_time: Date.now()
+});
+```
 
-- [ ] [Current feature being worked on]
-- [ ] [Next priority]
+### Conversion Tracking
+- Form starts and completions
+- Field-level interactions
+- Error occurrences
+- CTA clicks
+- Page scroll depth
+- Time on page
 
-### Known Issues
+## Error Handling Pattern
 
-- **Input backgrounds turning white on focus**: Despite extensive CSS overrides in `IntakeForm.override.css`, input fields (especially project name) occasionally show white backgrounds when focused or typed in. Multiple fixes applied with `!important` flags but issue persists intermittently. Current workaround: Aggressive CSS overrides at lines 220-237 in override.css.
-- [Issue 2]
+### Error Boundary
+```typescript
+class ErrorBoundary extends Component {
+  componentDidCatch(error, errorInfo) {
+    logErrorToService(error, errorInfo);
+    this.setState({ hasError: true });
+  }
+}
+```
 
-### Recent Changes
+### User-Friendly Messages
+```typescript
+const errorMessages = {
+  NETWORK_ERROR: 'Connection issue. Please check your internet.',
+  VALIDATION_ERROR: 'Please check the highlighted fields.',
+  RATE_LIMIT: 'Too many attempts. Please wait and try again.',
+};
+```
 
-- [Recent change 1]
-- [Recent change 2]
+## Code Quality Standards
 
-## AI Assistant Guidelines
+### TypeScript Configuration
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
+```
 
-When working on this project:
+### ESLint Rules
+- No any types
+- Prefer const
+- No console logs in production
+- Exhaustive deps for hooks
+- Accessibility rules enabled
 
-1. **Follow existing patterns**: Check `examples/` directory
-2. **Use TypeScript**: Strong typing required
-3. **Test everything**: Write tests alongside code
-4. **Accessibility first**: Every feature must be accessible
-5. **Performance matters**: Monitor bundle size
-6. **Document changes**: Update relevant documentation
+## PRP Usage Guide
 
-### Before Making Changes
+### Finding Component Specs
+```
+src/prp/
+├── atoms/          # Basic components (Button, Input, etc.)
+├── molecules/      # Compound components (FormField, etc.)
+├── organisms/      # Complex components (IntakeForm, etc.)
+├── templates/      # Page layouts
+└── system/         # Design system, accessibility, etc.
+```
 
-- Read relevant PRPs in `PRPs/` directory
-- Check examples in `examples/` directory
-- Review specs in `specs/` directory
-- Understand current architecture
+### Using PRPs for Development
+1. Read the relevant PRP before implementing
+2. Follow the technical specifications exactly
+3. Implement all acceptance criteria
+4. Reference the testing requirements
+5. Check accessibility requirements
 
-### After Making Changes
+## Common Patterns
 
-- Run validation loops (lint, test, type-check)
-- Update documentation if needed
-- Check accessibility
-- Verify performance impact
+### Loading States
+```typescript
+if (isLoading) return <Spinner />;
+if (error) return <ErrorMessage error={error} />;
+return <Content data={data} />;
+```
 
-## Project-Specific Context
+### Form Submission
+```typescript
+const onSubmit = async (data: FormData) => {
+  try {
+    setIsSubmitting(true);
+    await submitForm(data);
+    router.push('/thank-you');
+  } catch (error) {
+    setError(error.message);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+```
 
-[Add any project-specific information, patterns, or requirements here]
+### Responsive Design
+```tsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  {/* Responsive grid */}
+</div>
+```
 
-### Business Logic
+## Do's and Don'ts
 
-[Describe core business logic and rules]
+### Do's ✅
+- Use TypeScript strict mode
+- Write tests for new components
+- Follow accessibility guidelines
+- Use semantic HTML
+- Implement proper error handling
+- Optimize for performance
+- Document complex logic
+- Use PRPs as reference
 
-### API Endpoints (if applicable)
+### Don'ts ❌
+- Skip accessibility testing
+- Expose API keys in code
+- Use inline styles
+- Ignore TypeScript errors
+- Skip form validation
+- Use any type
+- Commit console.logs
+- Deploy without testing
 
-[List main API endpoints and their purposes]
+## Troubleshooting
 
-### State Management
+### Common Issues
+1. **Build fails**: Check Node version (18+)
+2. **Styles not applying**: Check Tailwind config
+3. **Forms not submitting**: Check validation and network
+4. **Calendly not loading**: Check URL and permissions
+5. **Deploy fails**: Check GitHub Pages settings
 
-[Describe state management approach]
+## Resources
 
-### Deployment Process
+### Documentation
+- [Next.js Docs](https://nextjs.org/docs)
+- [React Hook Form](https://react-hook-form.com)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Storybook](https://storybook.js.org/docs)
 
-[Describe how the project is deployed]
+### Internal Docs
+- Component PRPs: `src/prp/`
+- Design System: `src/prp/system/DesignSystem.prp.md`
+- Testing Strategy: `src/prp/system/TestingStrategy.prp.md`
+- Deployment: `src/prp/system/DeploymentPipeline.prp.md`
 
-## Important Notes
+## Support
 
-- [Important note 1]
-- [Important note 2]
-- [Important note 3]
+For questions or issues:
+1. Check the relevant PRP documentation
+2. Review this CLAUDE.md file
+3. Check GitHub issues
+4. Contact the development team
 
 ---
-
-**Last Updated**: [DATE]
-**Maintained By**: [TEAM/PERSON]
+**Version**: 1.0.0
+**Last Updated**: 2025-08-30
+**Maintained By**: Development Team
