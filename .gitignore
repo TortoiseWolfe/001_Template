@@ -32,3 +32,6 @@ src/data/resume.json
 # Keep example files
 !.env.example
 !src/data/resume.example.json
+
+*storybook.log
+storybook-static
