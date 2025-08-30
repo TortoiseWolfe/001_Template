@@ -9,7 +9,7 @@ Production-ready Next.js template for high-converting funnel pages with intake f
 - **UI Library**: React 19.1.1 + shadcn/ui
 - **Styling**: Tailwind CSS 4.1.12
 - **Forms**: React Hook Form 7.62.0 + Zod 4.1.5 validation
-- **Email**: EmailJS 4.4.1 (client-side) / Resend (server-side)
+- **Email**: Web3Forms / EmailJS 4.4.1 / Resend (multiple providers supported)
 - **Scheduling**: react-calendly 4.4.0
 - **Component Dev**: Storybook 9.1.3
 - **Testing**: Vitest 3.2.4 + React Testing Library 16.1.0

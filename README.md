@@ -292,7 +292,38 @@ const onSubmit = async (data: FormData) => {
 
 ## 📧 Email Integration
 
-### EmailJS Setup
+Multiple email providers are supported. Choose based on your needs:
+- **Web3Forms** - Privacy-focused, no account needed (recommended)
+- **EmailJS** - Template-based, client-side only
+- **Resend** - React components, best DX
+- **SendGrid** - Enterprise features
+
+See `src/prp/system/EmailProviders.prp.md` for detailed comparison.
+
+### Web3Forms Setup (Recommended - 5 min setup)
+
+1. **Get access key** at [web3forms.com](https://web3forms.com)
+   - No account required
+   - Just enter your email to receive the key
+
+2. **Add to environment**:
+   ```env
+   NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-access-key
+   ```
+
+3. **Use in component**:
+   ```typescript
+   const response = await fetch('https://api.web3forms.com/submit', {
+     method: 'POST',
+     headers: { 'Content-Type': 'application/json' },
+     body: JSON.stringify({
+       access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+       ...formData
+     })
+   });
+   ```
+
+### EmailJS Setup (Alternative)
 
 1. **Create EmailJS account** at [emailjs.com](https://www.emailjs.com)
 

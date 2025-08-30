@@ -497,13 +497,61 @@ const errorMessages = {
 
 ## Integration Requirements
 
-### EmailJS Integration
+### Email Service Integration (Multiple Options)
+
+The form supports multiple email providers. Choose based on your requirements:
+- **Web3Forms**: Privacy-focused, no account needed (recommended)
+- **EmailJS**: Template-based, client-side only
+- **Resend**: React components, best DX
+- **SendGrid**: Enterprise features
+
+See `src/prp/system/EmailProviders.prp.md` for detailed comparison.
+
+#### Option 1: Web3Forms Integration (Recommended)
+```typescript
+const sendIntakeEmail = async (formData: FormData) => {
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+        subject: `New Intake Form Submission from ${formData.firstName} ${formData.lastName}`,
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company || 'Not provided',
+        message: formData.message,
+        project_type: formData.projectType,
+        budget: formData.budget || 'Not specified',
+        timeline: formData.timeline || 'Not specified',
+        submitted_at: new Date().toISOString(),
+        // Web3Forms specific features
+        botcheck: true,  // Spam protection
+        replyto: formData.email
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to send email');
+    }
+  } catch (error) {
+    console.error('Email service error:', error);
+    throw new Error('EMAIL_SERVICE_ERROR');
+  }
+};
+```
+
+#### Option 2: EmailJS Integration
 ```typescript
 const sendIntakeEmail = async (formData: FormData) => {
   try {
     await emailjs.send(
-      emailServiceConfig.serviceId,
-      emailServiceConfig.templateId,
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
       {
         to_email: 'admin@company.com',
         from_name: `${formData.firstName} ${formData.lastName}`,
@@ -516,7 +564,7 @@ const sendIntakeEmail = async (formData: FormData) => {
         timeline: formData.timeline || 'Not specified',
         submitted_at: new Date().toISOString()
       },
-      emailServiceConfig.publicKey
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
     );
   } catch (error) {
     console.error('Email service error:', error);
